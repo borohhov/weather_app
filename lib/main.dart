@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: WeatherInfoWidget(WeatherRetriever.getDummyWeather())
+      body: WeatherInfoWidget(WeatherRetriever.getWeatherInfoFromWeatherApi())
 
     );
   }

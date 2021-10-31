@@ -1,3 +1,5 @@
+import 'package:enum_to_string/enum_to_string.dart';
+
 class WeatherInfo {
   double temperature;
   Wind wind;
@@ -14,19 +16,16 @@ class Wind {
   Wind(this.speed, this.direction);
 }
 
-enum Direction {
-  NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
+enum Direction { N, S, E, W, NNE, NE, ENE, ESE, SE, SSE, SSW, SW, WSW, WNW, NW, NNW, UNKNOWN }
+
+Direction directionFromString(String dir) {
+  return EnumToString.fromString(Direction.values, dir) ?? Direction.UNKNOWN;
 }
 
-enum Condition {
-  RAIN, HEAVY_RAIN, SNOW, DRIZZLE, SUN, FOG
+class Condition {
+  String text;
+
+  Condition(this.text);
 }
 
-String getConditionDescription(Condition condition) {
-  switch (condition) {
-    case Condition.RAIN:
-      return "Take an umbrella";
-    default:
-      return "It's some weather";
-  }
-}
+
