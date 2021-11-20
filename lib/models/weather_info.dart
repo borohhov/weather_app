@@ -24,7 +24,6 @@ Direction directionFromString(String dir) {
 
 class Condition {
   String text;
-
   Condition(this.text);
 }
 
