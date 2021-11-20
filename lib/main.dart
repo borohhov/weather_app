@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/controllers/weather_retriever.dart';
+import 'package:weather_app/views/history_page.dart';
 import 'package:weather_app/views/theme.dart';
 import 'package:weather_app/views/weather_info_widget.dart';
 
@@ -14,9 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        routes: {
+          '/': (context) => MyHomePage(title: "Weather App",),
+          '/history': (context) => HistoryPage(),
+        },
       title: 'Weather App',
       theme: THEME_DATA,
-      home: const MyHomePage(title: 'Weather App'),
+      initialRoute: '/',
     );
   }
 }
@@ -31,16 +36,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: WeatherInfoWidget()
-
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: WeatherInfoWidget());
   }
 }

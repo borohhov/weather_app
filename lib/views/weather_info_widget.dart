@@ -43,14 +43,14 @@ class WeatherInfoWidgetState extends State<WeatherInfoWidget> {
                       setState(() {
                         weatherInfoFuture = WeatherRetriever.getWeatherInfoFromWeatherApi();
                       });
+                      Navigator.of(context).pushNamed('/history');
                     };
                   }
                   widgets.add(ElevatedButton(onPressed: onButtonPress, child: Text("Refresh")));
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     widgets.add(Text("Loading..."));
                   } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                    String weatherDataStr = snapshot.data?.toString() ?? "";
-                    SharedPreferencesController().setString(DateTime.now().toString(), weatherDataStr);
+                    addToHistory(snapshot.data!);
                     widgets.add(Column(
                       children: [
                         Text(snapshot.data?.location ?? "", style: Theme.of(context).textTheme.bodyText2),
@@ -69,5 +69,14 @@ class WeatherInfoWidgetState extends State<WeatherInfoWidget> {
         )
       ],
     );
+  }
+
+  void addToHistory(WeatherInfo weatherInfo) async {
+    String key = "weatherInfo";
+    String weatherDataStr = weatherInfo.toString();
+    SharedPreferencesController controller = SharedPreferencesController();
+    List<String> weatherInfoList = (await controller.getStringList(key)) ?? <String>[];
+    weatherInfoList.add(weatherDataStr);
+    controller.setStringList(key, weatherInfoList);
   }
 }
