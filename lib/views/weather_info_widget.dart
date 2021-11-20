@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:weather_app/controllers/shared_preferences_controller.dart';
 import 'package:weather_app/controllers/weather_retriever.dart';
 import 'package:weather_app/integrations/weather_api.dart';
 import 'package:weather_app/models/weather_info.dart';
@@ -48,6 +49,8 @@ class WeatherInfoWidgetState extends State<WeatherInfoWidget> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     widgets.add(Text("Loading..."));
                   } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                    String weatherDataStr = snapshot.data?.toString() ?? "";
+                    SharedPreferencesController().setString(DateTime.now().toString(), weatherDataStr);
                     widgets.add(Column(
                       children: [
                         Text(snapshot.data?.location ?? "", style: Theme.of(context).textTheme.bodyText2),

@@ -12,7 +12,9 @@ class SharedPreferencesController {
     (await getPrefs()).setString(key, value);
   }
 
-  dynamic getString(String key) async {
-    (await getPrefs()).getString(key);
+  Future<String>? getString(String key) async {
+    return Future.value((await getPrefs()).getString(key));
   }
+
+
 }

@@ -10,10 +10,7 @@ class WeatherRetriever {
   }
 
   static WeatherInfo _convertWeatherApiToWeatherInfo(WeatherApiObject weatherApiObject) {
-    Wind wind =
-        Wind(weatherApiObject.currentWeather.windKph, directionFromString(weatherApiObject.currentWeather.windDir));
-
-    WeatherInfo weatherInfo = WeatherInfo(weatherApiObject.currentWeather.tempCelsius, wind,
+    WeatherInfo weatherInfo = WeatherInfo(weatherApiObject.currentWeather.tempCelsius,
         weatherApiObject.location.name, Condition(weatherApiObject.currentWeather.condition.text));
     return weatherInfo;
   }
